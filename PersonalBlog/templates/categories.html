@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if category_posts %}
+        <h1>{{ cats }} Posts</h1>
+
+        <ul>
+            {% for post in category_posts %}
+                <li>{{ post.title }} - <small>{{ post.post_date }}</small> <br/><br/>
+                    {{ post.body|slice:":200"|safe }} <br/><br/>
+                    <p style="font-style: italic"> By {{ post.author.first_name }} {{ post.author.last_name }}</p>
+                </li>
+                <br>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-primary" href="{% url 'article-detail' post.pk %}" role="button">View</a>
+                    <a class="btn btn-success" href="{% url 'update_post' post.pk %}" role="button">Edit</a>
+                    <a class="btn btn-danger" href="{% url 'delete_post' post.pk %}" role="button">Delete</a>
+                {% endif %}
+                <hr>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <h2>Sorry, this page does not exist!</h2>
+    {% endif %}
+
+{% endblock %}

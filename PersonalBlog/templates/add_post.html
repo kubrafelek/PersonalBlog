@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Add a new post {% endblock %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        <h1>Add Post</h1>
+        <br/><br/>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-dark">Add</button>
+        </form>
+
+        <script>
+            var name = "{{ user.id }}";
+            document.getElementById("Admin").value = name;
+
+        </script>
+    {% else %}
+
+        You are not allowed here! (and you know it...)
+    {% endif %}
+
+{% endblock %}
